@@ -62,9 +62,10 @@ export const AppLayout = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, isAdmin])
 
+
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: '#2E3B55' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <AdbIcon sx={{ display: "flex", mr: 1 }} />

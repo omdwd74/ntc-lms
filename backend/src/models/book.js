@@ -8,6 +8,7 @@ const BookModel = model(
     category: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
+    authorName: { type: String, required: true},
     borrowedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
     priceHistory: { type: Array, required: true, default: [] },
     quantityHistory: { type: Array, required: true, default: [] },

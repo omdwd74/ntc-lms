@@ -45,6 +45,7 @@ export const Book = () => {
         }
     }
 
+
     const returnBook = () => {
         if (book && user) {
             BackendApi.user
@@ -135,6 +136,12 @@ export const Book = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th">
+                                            Author Name
+                                        </TableCell>
+                                        <TableCell>{book.authorName}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
                                             Available
                                         </TableCell>
                                         <TableCell>{book.availableQuantity}</TableCell>
@@ -171,6 +178,7 @@ export const Book = () => {
                     </TabPanel>
 
                     <CardActions disableSpacing>
+                    
                         <div className={classes.btnContainer}>
                             {isAdmin ? (
                                 <Button
@@ -184,6 +192,7 @@ export const Book = () => {
                             ) : (
                                 <>
                                     <Button
+                                    
                                         variant="contained"
                                         onClick={borrowBook}
                                         disabled={book && user && book.borrowedBy.includes(user._id)}

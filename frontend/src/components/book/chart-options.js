@@ -14,7 +14,7 @@ export const makeChartOptions = (index, chartData) => {
         yAxis: {
             labels: {
                 // eslint-disable-next-line no-template-curly-in-string
-                format: index === 1 ? "${value}" : null,
+                format: index === 1 ? "₹{value}" : null,
             },
             title: {
                 text: index === 1 ? "Price" : "Quantity",
@@ -33,7 +33,7 @@ export const makeChartOptions = (index, chartData) => {
                 name: index === 1 ? "Price" : "Quantity",
                 data: chartData?.map((item) => (index === 1 ? Number(item.price) : Number(item.quantity))),
                 // eslint-disable-next-line no-template-curly-in-string
-                format: index === 1 ? "${value}" : null,
+                format: index === 1 ? "₹{value}" : null,
             },
         ],
     }

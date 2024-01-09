@@ -77,6 +77,7 @@ export const BooksList = () => {
                                         <TableCell align="right">ISBN</TableCell>
                                         <TableCell>Category</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
+                                        <TableCell align="right">Author Name</TableCell>
                                         <TableCell align="right">Available</TableCell>
                                         <TableCell align="right">Price</TableCell>
                                         <TableCell>Action</TableCell>
@@ -94,8 +95,9 @@ export const BooksList = () => {
                                             <TableCell align="right">{book.isbn}</TableCell>
                                             <TableCell>{book.category}</TableCell>
                                             <TableCell align="right">{book.quantity}</TableCell>
+                                            <TableCell align="right">{book.authorName}</TableCell>
                                             <TableCell align="right">{book.availableQuantity}</TableCell>
-                                            <TableCell align="right">{`$${book.price}`}</TableCell>
+                                            <TableCell align="right">{`₹${book.price}`}</TableCell>
                                             <TableCell>
                                                 <div className={classes.actionsContainer}>
                                                     <Button

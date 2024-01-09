@@ -28,6 +28,7 @@ export const BookForm = () => {
         category: "",
         price: 0,
         quantity: 0,
+        authorName: "",
         priceHistory: [],
         quantityHistory: [],
     })
@@ -37,6 +38,7 @@ export const BookForm = () => {
         category: "",
         price: "",
         quantity: "",
+        authorName: "",
     })
 
     const isInvalid =
@@ -88,7 +90,7 @@ export const BookForm = () => {
 
     const validateForm = (event) => {
         const { name, value } = event.target
-        if (["name", "isbn", "price", "quantity"].includes(name)) {
+        if (["name", "isbn", "price", "quantity", "authorName"].includes(name)) {
             setBook((prevProd) => ({ ...prevProd, [name]: value.trim() }))
             if (!value.trim().length) {
                 setErrors({ ...errors, [name]: `${name} can't be empty` })
@@ -193,6 +195,18 @@ export const BookForm = () => {
                                 onBlur={validateForm}
                                 error={errors.quantity.length > 0}
                                 helperText={errors.quantity}
+                            />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Author Name"
+                                name="author name"
+                                required
+                                value={book.authorName}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.authorName.length > 0}
+                                helperText={errors.authorName}
                             />
                         </FormControl>
                     </FormGroup>
