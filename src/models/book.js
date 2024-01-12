@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
-const BookModel = model(
-  "books",
+const BookModel = model( 
+   "books",
   new Schema({
 <<<<<<< HEAD
     name: { type: String, required: true },
