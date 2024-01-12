@@ -23,26 +23,36 @@ export const BookForm = () => {
     const { bookIsbn } = useParams()
     const navigate = useNavigate()
     const [book, setBook] = useState({
-        name: "",
+        accNo: "",
+        title: "",
+        keyw: "",
         isbn: bookIsbn || "",
         category: "",
         price: 0,
         quantity: 0,
         authorName: "",
+        tob: "",
+        edition: "",
+        publisher: "",
         priceHistory: [],
         quantityHistory: [],
     })
     const [errors, setErrors] = useState({
-        name: "",
+        accNo: "",
+        title: "",
+        keyw: "",
         isbn: "",
         category: "",
         price: "",
         quantity: "",
+        tob: "",
+        edition: "",
+        publisher: "",
         authorName: "",
     })
 
     const isInvalid =
-        book.name.trim() === "" || book.isbn.trim() === "" || book.category.trim() === ""
+        book.title.trim() === "" || book.isbn.trim() === "" || book.category.trim() === ""
 
     const formSubmit = (event) => {
         event.preventDefault()
@@ -90,7 +100,7 @@ export const BookForm = () => {
 
     const validateForm = (event) => {
         const { name, value } = event.target
-        if (["name", "isbn", "price", "quantity", "authorName"].includes(name)) {
+        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher"].includes(name)) {
             setBook((prevProd) => ({ ...prevProd, [name]: value.trim() }))
             if (!value.trim().length) {
                 setErrors({ ...errors, [name]: `${name} can't be empty` })
@@ -98,7 +108,7 @@ export const BookForm = () => {
                 setErrors({ ...errors, [name]: "" })
             }
         }
-        if (["price", "quantity"].includes(name)) {
+        if (["accNo", "price", "quantity"].includes(name)) {
             if (isNaN(Number(value))) {
                 setErrors({ ...errors, [name]: "Only numbers are allowed" })
             } else {
@@ -128,17 +138,37 @@ export const BookForm = () => {
                 </Typography>
                 <form noValidate autoComplete="off" onSubmit={formSubmit}>
                     <FormGroup>
-                        <FormControl className={classes.mb2}>
+                    <FormControl className={classes.mb2}>
                             <TextField
-                                label="Name"
-                                name="name"
+                                label="Accession No"
+                                name="accNo"
                                 required
-                                value={book.name}
+                                value={book.accNo}
                                 onChange={updateBookField}
                                 onBlur={validateForm}
-                                error={errors.name.length > 0}
-                                helperText={errors.name}
+                                error={errors.accNo.length > 0}
+                                helperText={errors.accNo}
                             />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Title"
+                                name="title"
+                                required
+                                value={book.title}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.title.length > 0}
+                                helperText={errors.title}
+                            />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <InputLabel>Keyword</InputLabel>
+                            <Select name="keyword" value={book.keyw} onChange={updateBookField} required>
+                                <MenuItem value="Computer">Computer</MenuItem>
+                                <MenuItem value="Programming">Programming</MenuItem>
+                                <MenuItem value="Add Category">+ Add keyword</MenuItem>
+                            </Select>
                         </FormControl>
                         <FormControl className={classes.mb2}>
                             <TextField
@@ -200,7 +230,7 @@ export const BookForm = () => {
                         <FormControl className={classes.mb2}>
                             <TextField
                                 label="Author Name"
-                                name="author name"
+                                name="authorName"
                                 required
                                 value={book.authorName}
                                 onChange={updateBookField}
@@ -208,6 +238,38 @@ export const BookForm = () => {
                                 error={errors.authorName.length > 0}
                                 helperText={errors.authorName}
                             />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Edition"
+                                name="edition"
+                                required
+                                value={book.edition}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.edition.length > 0}
+                                helperText={errors.edition}
+                            />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Publisher"
+                                name="publisher"
+                                required
+                                value={book.publisher}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.publisher.length > 0}
+                                helperText={errors.publisher}
+                            />
+                        </FormControl>
+                        <FormControl className={classes.mb2}>
+                            <InputLabel>Type of Binding</InputLabel>
+                            <Select name="keyword" value={book.tob} onChange={updateBookField} required>
+                                <MenuItem value="Paperback">Paperback</MenuItem>
+                                <MenuItem value="Hardcover">Hardcover</MenuItem>
+                                <MenuItem value="Spiral Bound">Spiral Bound</MenuItem>
+                            </Select>
                         </FormControl>
                     </FormGroup>
                     <div className={classes.btnContainer}>

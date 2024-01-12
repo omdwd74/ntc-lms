@@ -110,11 +110,23 @@ export const Book = () => {
                         <CardContent>
                             <Table>
                                 <TableBody>
+                                <TableRow>
+                                        <TableCell variant="head" component="th" width="200">
+                                            Accession No.
+                                        </TableCell>
+                                        <TableCell>{book.accNo}</TableCell>
+                                    </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th" width="200">
-                                            Name
+                                            Title
                                         </TableCell>
-                                        <TableCell>{book.name}</TableCell>
+                                        <TableCell>{book.title}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th" width="200">
+                                            Keyword
+                                        </TableCell>
+                                        <TableCell>{book.keyw}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th">
@@ -139,6 +151,24 @@ export const Book = () => {
                                             Author Name
                                         </TableCell>
                                         <TableCell>{book.authorName}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Type Of Binding
+                                        </TableCell>
+                                        <TableCell>{book.tob}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Edition
+                                        </TableCell>
+                                        <TableCell>{book.edition}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Publisher
+                                        </TableCell>
+                                        <TableCell>{book.publisher}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th">

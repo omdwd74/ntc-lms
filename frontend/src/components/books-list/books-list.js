@@ -73,12 +73,16 @@ export const BooksList = () => {
                             <Table stickyHeader>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Name</TableCell>
+                                    <TableCell align="right">Acc. No.</TableCell>
+                                        <TableCell align="right">Name</TableCell>
                                         <TableCell align="right">ISBN</TableCell>
                                         <TableCell>Category</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Author Name</TableCell>
+                                        <TableCell align="right">Type Of Binding</TableCell>
                                         <TableCell align="right">Available</TableCell>
+                                        <TableCell align="right">Edition</TableCell>
+                                        <TableCell align="right">Publisher</TableCell>
                                         <TableCell align="right">Price</TableCell>
                                         <TableCell>Action</TableCell>
                                     </TableRow>
@@ -89,14 +93,20 @@ export const BooksList = () => {
                                         : books
                                     ).map((book) => (
                                         <TableRow key={book.isbn}>
-                                            <TableCell component="th" scope="row">
-                                                {book.name}
+                                        <TableCell component="th" scope="row">
+                                                {book.accNo}
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                {book.title}
                                             </TableCell>
                                             <TableCell align="right">{book.isbn}</TableCell>
                                             <TableCell>{book.category}</TableCell>
                                             <TableCell align="right">{book.quantity}</TableCell>
                                             <TableCell align="right">{book.authorName}</TableCell>
+                                            <TableCell>{book.tob}</TableCell>
                                             <TableCell align="right">{book.availableQuantity}</TableCell>
+                                            <TableCell align="right">{book.edition}</TableCell>
+                                            <TableCell align="right">{book.publisher}</TableCell>
                                             <TableCell align="right">{`₹${book.price}`}</TableCell>
                                             <TableCell>
                                                 <div className={classes.actionsContainer}>
