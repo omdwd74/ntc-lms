@@ -4,6 +4,7 @@ const BookModel = model(
   "books",
   new Schema({
     name: { type: String, required: true },
+    keyw: { type:String, required:true},
     isbn: { type: String, required: true, unique: true },
     category: { type: String, required: true },
     price: { type: Number, required: true },
