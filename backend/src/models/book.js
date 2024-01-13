@@ -1,3 +1,4 @@
+
 const { model, Schema } = require("mongoose")
 
 const BookModel = model(
@@ -14,6 +15,12 @@ const BookModel = model(
     tob: {type: String, required: true },
     quantity: { type: Number, required: true },
     authorName: { type: String, required: true},
+    nop: {type: Number, required: true},
+    vol: {type: String, required: true},
+    supname: {type: String, required: true},
+    supplc: {type: String, required: true},
+    curr: {type: String, required: true},
+    disc: {type: Number, required: true},
     borrowedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
     priceHistory: { type: Array, required: true, default: [] },
     quantityHistory: { type: Array, required: true, default: [] },

@@ -8,6 +8,7 @@ const BookApi = {
     return res.json()
   },
   addBook: async (data) => {
+    // console.log(data)
     const res = await fetch("/v1/book", {
       method: "POST",
       body: JSON.stringify(data),

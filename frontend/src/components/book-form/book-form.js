@@ -34,8 +34,14 @@ export const BookForm = () => {
         tob: "",
         edition: "",
         publisher: "",
+        nop: 0,
         priceHistory: [],
         quantityHistory: [],
+        supname: "",
+        supplc: "",
+        vol: 0,
+        curr: "",
+        disc: "",
     })
     const [errors, setErrors] = useState({
         accNo: "",
@@ -48,7 +54,13 @@ export const BookForm = () => {
         tob: "",
         edition: "",
         publisher: "",
+        nop: "",
         authorName: "",
+        supname: "",
+        supplc: "",
+        vol: "",
+        curr: "",
+        disc: "",
     })
 
     const isInvalid =
@@ -100,7 +112,7 @@ export const BookForm = () => {
 
     const validateForm = (event) => {
         const { name, value } = event.target
-        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher"].includes(name)) {
+        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher", "supname", "supplc", "vol", "curr"].includes(name)) {
             setBook((prevProd) => ({ ...prevProd, [name]: value.trim() }))
             if (!value.trim().length) {
                 setErrors({ ...errors, [name]: `${name} can't be empty` })
@@ -108,7 +120,7 @@ export const BookForm = () => {
                 setErrors({ ...errors, [name]: "" })
             }
         }
-        if (["accNo", "price", "quantity"].includes(name)) {
+        if (["accNo", "price", "quantity", "disc"].includes(name)) {
             if (isNaN(Number(value))) {
                 setErrors({ ...errors, [name]: "Only numbers are allowed" })
             } else {
@@ -164,7 +176,7 @@ export const BookForm = () => {
                         </FormControl>
                         <FormControl className={classes.mb2}>
                             <InputLabel>Keyword</InputLabel>
-                            <Select name="keyword" value={book.keyw} onChange={updateBookField} required>
+                            <Select name="keyw" value={book.keyw} onChange={updateBookField} required>
                                 <MenuItem value="Computer">Computer</MenuItem>
                                 <MenuItem value="Programming">Programming</MenuItem>
                                 <MenuItem value="Add Category">+ Add keyword</MenuItem>
@@ -264,8 +276,73 @@ export const BookForm = () => {
                             />
                         </FormControl>
                         <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Number of Pages"
+                                name="nop"
+                                required
+                                value={book.nop}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.nop.length > 0}
+                                helperText={errors.nop}
+                            />
+                        </FormControl>
+                        
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Supplier Name"
+                                name="supname"
+                                required
+                                value={book.supname}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.supname.length > 0}
+                                helperText={errors.supname}
+                            />
+                            </FormControl>
+
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Supplier Place"
+                                name="supplc"
+                                required
+                                value={book.supplc}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.supplc.length > 0}
+                                helperText={errors.supplc}
+                            />
+                            </FormControl>
+
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Currency"
+                                name="curr"
+                                required
+                                value={book.curr}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.curr.length > 0}
+                                helperText={errors.curr}
+                            />
+                            </FormControl>
+
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Discount"
+                                name="disc"
+                                required
+                                value={book.disc}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.disc.length > 0}
+                                helperText={errors.disc}
+                            />
+                            </FormControl>
+
+                        <FormControl className={classes.mb2}>
                             <InputLabel>Type of Binding</InputLabel>
-                            <Select name="keyword" value={book.tob} onChange={updateBookField} required>
+                            <Select name="tob" value={book.tob} onChange={updateBookField} required>
                                 <MenuItem value="Paperback">Paperback</MenuItem>
                                 <MenuItem value="Hardcover">Hardcover</MenuItem>
                                 <MenuItem value="Spiral Bound">Spiral Bound</MenuItem>

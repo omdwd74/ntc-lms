@@ -178,9 +178,45 @@ export const Book = () => {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell variant="head" component="th">
+                                            No. of Pages
+                                        </TableCell>
+                                        <TableCell>{book.nop}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
                                             Price
                                         </TableCell>
                                         <TableCell>${book.price}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Currency
+                                        </TableCell>
+                                        <TableCell>{book.curr}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Supplier Name
+                                        </TableCell>
+                                        <TableCell>{book.supname}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                        Supplier Place
+                                        </TableCell>
+                                        <TableCell>{book.supplc}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Discount
+                                        </TableCell>
+                                        <TableCell>{book.disc}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Volume
+                                        </TableCell>
+                                        <TableCell>{book.vol}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
