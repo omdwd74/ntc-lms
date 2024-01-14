@@ -89,6 +89,7 @@ export const BooksList = () => {
                                         <TableCell align="right">Supplier Place</TableCell>
                                         <TableCell align="right">Currency</TableCell>
                                         <TableCell align="right">Discount</TableCell>
+                                        <TableCell align="right">Date</TableCell>
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -118,6 +119,7 @@ export const BooksList = () => {
                                             <TableCell align="right">{book.supplc}</TableCell>
                                             <TableCell align="right">{book.curr}</TableCell>
                                             <TableCell align="right">{book.disc}</TableCell>
+                                            <TableCell align="right">{book.dt}</TableCell>
                                             <TableCell>
                                                 <div className={classes.actionsContainer}>
                                                     <Button

@@ -19,10 +19,14 @@ import classes from "./styles.module.css"
 
 dayjs.extend(utc)
 
+
+
 export const BookForm = () => {
+    
     const { bookIsbn } = useParams()
     const navigate = useNavigate()
     const [book, setBook] = useState({
+        // dte : Date().toLocaleString().split(',')[0],
         accNo: "",
         title: "",
         keyw: "",
@@ -42,6 +46,7 @@ export const BookForm = () => {
         vol: 0,
         curr: "",
         disc: "",
+        dte: "",
     })
     const [errors, setErrors] = useState({
         accNo: "",
@@ -61,6 +66,7 @@ export const BookForm = () => {
         vol: "",
         curr: "",
         disc: "",
+        dte: "",
     })
 
     const isInvalid =
@@ -112,7 +118,7 @@ export const BookForm = () => {
 
     const validateForm = (event) => {
         const { name, value } = event.target
-        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher", "supname", "supplc", "vol", "curr"].includes(name)) {
+        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher", "supname", "supplc", "vol", "curr", "dte"].includes(name)) {
             setBook((prevProd) => ({ ...prevProd, [name]: value.trim() }))
             if (!value.trim().length) {
                 setErrors({ ...errors, [name]: `${name} can't be empty` })
@@ -197,13 +203,13 @@ export const BookForm = () => {
                         <FormControl className={classes.mb2}>
                             <InputLabel>Category</InputLabel>
                             <Select name="category" value={book.category} onChange={updateBookField} required>
-                                <MenuItem value="Sci-Fi">Sci-Fi</MenuItem>
-                                <MenuItem value="Action">Action</MenuItem>
-                                <MenuItem value="Adventure">Adventure</MenuItem>
-                                <MenuItem value="Horror">Horror</MenuItem>
-                                <MenuItem value="Romance">Romance</MenuItem>
-                                <MenuItem value="Mystery">Mystery</MenuItem>
-                                <MenuItem value="Thriller">Thriller</MenuItem>
+                                <MenuItem value="CSE">CSE</MenuItem>
+                                <MenuItem value="AI/ML">AI/ML</MenuItem>
+                                <MenuItem value="Textile Chemistry">Textile Chemistry</MenuItem>
+                                <MenuItem value="Textile Technology">Textile Technology</MenuItem>
+                                <MenuItem value="FMM">FMM</MenuItem>
+                                <MenuItem value="Journals">Journals</MenuItem>
+                                {/* <MenuItem value="Thriller">Thrille</MenuItem>
                                 <MenuItem value="Drama">Drama</MenuItem>
                                 <MenuItem value="Fantasy">Fantasy</MenuItem>
                                 <MenuItem value="Comedy">Comedy</MenuItem>
@@ -212,7 +218,7 @@ export const BookForm = () => {
                                 <MenuItem value="Western">Western</MenuItem>
                                 <MenuItem value="Literature">Literature</MenuItem>
                                 <MenuItem value="Poetry">Poetry</MenuItem>
-                                <MenuItem value="Philosophy">Philosophy</MenuItem>
+                                <MenuItem value="Philosophy">Philosophy</MenuItem> */}
                             </Select>
                         </FormControl>
                         <FormControl className={classes.mb2}>
@@ -348,6 +354,19 @@ export const BookForm = () => {
                                 <MenuItem value="Spiral Bound">Spiral Bound</MenuItem>
                             </Select>
                         </FormControl>
+
+                        <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Date"
+                                name="dte"
+                                required
+                                value={book.dte}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.dte.length > 0}
+                                helperText={errors.dte}
+                            />
+                            </FormControl>
                     </FormGroup>
                     <div className={classes.btnContainer}>
                         <Button

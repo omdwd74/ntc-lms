@@ -21,6 +21,7 @@ const BookModel = model(
     supplc: {type: String, required: true},
     curr: {type: String, required: true},
     disc: {type: Number, required: true},
+    dte: { type: Date, required: true},
     borrowedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
     priceHistory: { type: Array, required: true, default: [] },
     quantityHistory: { type: Array, required: true, default: [] },

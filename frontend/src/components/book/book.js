@@ -218,6 +218,12 @@ export const Book = () => {
                                         </TableCell>
                                         <TableCell>{book.vol}</TableCell>
                                     </TableRow>
+                                    <TableRow>
+                                        <TableCell variant="head" component="th">
+                                            Date
+                                        </TableCell>
+                                        <TableCell>{book.dt}</TableCell>
+                                    </TableRow>
                                 </TableBody>
                             </Table>
                         </CardContent>
