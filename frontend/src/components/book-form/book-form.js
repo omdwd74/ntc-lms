@@ -13,16 +13,23 @@ import {
     Select,
     MenuItem,
     Typography,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
 } from "@mui/material"
 import { BackendApi } from "../../client/backend-api"
 import classes from "./styles.module.css"
+import { BookApi } from "../../client/backend-api/book"
 
 dayjs.extend(utc)
 
-
+  
 
 export const BookForm = () => {
     
+    const [categories, setCategories] = useState([]);
     const { bookIsbn } = useParams()
     const navigate = useNavigate()
     const [book, setBook] = useState({
@@ -43,10 +50,13 @@ export const BookForm = () => {
         quantityHistory: [],
         supname: "",
         supplc: "",
-        vol: 0,
+        vol: "",
         curr: "",
         disc: "",
-        dte: "",
+        dte: dayjs().utc().format("YYYY-MM-DD"),
+        cmp: "",
+        trans: "",
+        remarks: "",
     })
     const [errors, setErrors] = useState({
         accNo: "",
@@ -67,6 +77,9 @@ export const BookForm = () => {
         curr: "",
         disc: "",
         dte: "",
+        cmp: "",
+        trans: "",
+        remarks: "",
     })
 
     const isInvalid =
@@ -113,12 +126,19 @@ export const BookForm = () => {
 
     const updateBookField = (event) => {
         const field = event.target
-        setBook((book) => ({ ...book, [field.name]: field.value }))
+        if (field.name === "dte") {
+            // Extract only the date from the input value
+            const dateValue = dayjs(field.value).utc().format("YYYY-MM-DD")
+            setBook((prevProd) => ({ ...prevProd, [field.name]: dateValue }))
+        } else {
+            setBook((book) => ({ ...book, [field.name]: field.value }))
+        }
     }
+
 
     const validateForm = (event) => {
         const { name, value } = event.target
-        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher", "supname", "supplc", "vol", "curr", "dte"].includes(name)) {
+        if (["accNo", "title", "isbn", "price", "quantity", "authorName", "edition", "publisher", "supname", "supplc", "vol", "curr", "dte", "cmp", "trans", "remarks"].includes(name)) {
             setBook((prevProd) => ({ ...prevProd, [name]: value.trim() }))
             if (!value.trim().length) {
                 setErrors({ ...errors, [name]: `${name} can't be empty` })
@@ -136,6 +156,17 @@ export const BookForm = () => {
     }
 
     useEffect(() => {
+        const fetchCategories = async () => {
+          const response = await BackendApi.getCategories();
+          const categories = response.data; // or however your API responds
+          setCategories(categories);
+        };
+      
+        fetchCategories();
+      }, []); // fetch on component mount
+      
+
+    useEffect(() => {
         if (bookIsbn) {
             BackendApi.book.getBookByIsbn(bookIsbn).then(({ book, error }) => {
                 if (error) {
@@ -148,8 +179,31 @@ export const BookForm = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookIsbn])
 
+    const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState(false);
+    
+    const [newCategory, setNewCategory] = useState("");
+    BookApi.addCategory(newCategory);
+
+  const handleAddCategory = async () => {
+    try {
+        console.log(BackendApi)
+    //   const createdCategory = await BackendApi.addCategory.entCategory(newCategory);
+      // Update the state with the new category list
+      
+      const createdCategory = await BackendApi.addCategory.entCategory(newCategory);
+      setCategories([...categories, createdCategory.name]); // Use the name property
+      setOpenAddCategoryDialog(false);
+    } catch (error) {
+      // Handle error gracefully, e.g., display an error message to the user
+      console.error('Error adding category:', error);
+    }
+}
+
+
+
     return (
         <>
+        
             <Container component={Paper} className={classes.wrapper}>
                 <Typography className={classes.pageHeader} variant="h5">
                     {bookIsbn ? "Update Book" : "Add Book"}
@@ -201,26 +255,47 @@ export const BookForm = () => {
                             />
                         </FormControl>
                         <FormControl className={classes.mb2}>
-                            <InputLabel>Category</InputLabel>
-                            <Select name="category" value={book.category} onChange={updateBookField} required>
-                                <MenuItem value="CSE">CSE</MenuItem>
-                                <MenuItem value="AI/ML">AI/ML</MenuItem>
-                                <MenuItem value="Textile Chemistry">Textile Chemistry</MenuItem>
-                                <MenuItem value="Textile Technology">Textile Technology</MenuItem>
-                                <MenuItem value="FMM">FMM</MenuItem>
-                                <MenuItem value="Journals">Journals</MenuItem>
-                                {/* <MenuItem value="Thriller">Thrille</MenuItem>
-                                <MenuItem value="Drama">Drama</MenuItem>
-                                <MenuItem value="Fantasy">Fantasy</MenuItem>
-                                <MenuItem value="Comedy">Comedy</MenuItem>
-                                <MenuItem value="Biography">Biography</MenuItem>
-                                <MenuItem value="History">History</MenuItem>
-                                <MenuItem value="Western">Western</MenuItem>
-                                <MenuItem value="Literature">Literature</MenuItem>
-                                <MenuItem value="Poetry">Poetry</MenuItem>
-                                <MenuItem value="Philosophy">Philosophy</MenuItem> */}
-                            </Select>
-                        </FormControl>
+        <InputLabel>Category</InputLabel>
+        <Select
+          name="category"
+          value={book.category}
+          onChange={updateBookField}
+          required
+        >
+          {categories.map((category) => (
+            <MenuItem key={category} value={category}>
+              {category}
+            </MenuItem>
+          ))}
+          <MenuItem value="Add Category" onClick={() => setOpenAddCategoryDialog(true)}>
+            + Add Category
+          </MenuItem>
+        </Select>
+      </FormControl>
+
+      <Dialog open={openAddCategoryDialog} onClose={() => setOpenAddCategoryDialog(false)}>
+                <DialogTitle>Add New Category</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>Enter the new category name:</DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Category Name"
+                        value={newCategory} // Use newCategory state variable
+                        onChange={(e) => setNewCategory(e.target.value)}
+ // Use the existing state setter
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenAddCategoryDialog(false)} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleAddCategory} color="primary">
+                        Add
+                    </Button>
+                </DialogActions>
+            </Dialog>
                         <FormControl className={classes.mb2}>
                             <TextField
                                 label="Price"
@@ -322,6 +397,19 @@ export const BookForm = () => {
 
                             <FormControl className={classes.mb2}>
                             <TextField
+                                label="Volume"
+                                name="vol"
+                                required
+                                value={book.vol}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.vol.length > 0}
+                                helperText={errors.vol}
+                            />
+                            </FormControl>
+
+                            <FormControl className={classes.mb2}>
+                            <TextField
                                 label="Currency"
                                 name="curr"
                                 required
@@ -365,6 +453,42 @@ export const BookForm = () => {
                                 onBlur={validateForm}
                                 error={errors.dte.length > 0}
                                 helperText={errors.dte}
+                            />
+                            </FormControl>
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Compiler"
+                                name="cmp"
+                                required
+                                value={book.cmp}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.cmp.length > 0}
+                                helperText={errors.cmp}
+                            />
+                            </FormControl>
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Translator"
+                                name="trans"
+                                required
+                                value={book.trans}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.trans.length > 0}
+                                helperText={errors.trans}
+                            />
+                            </FormControl>
+                            <FormControl className={classes.mb2}>
+                            <TextField
+                                label="Remarks"
+                                name="remarks"
+                                required
+                                value={book.remarks}
+                                onChange={updateBookField}
+                                onBlur={validateForm}
+                                error={errors.remarks.length > 0}
+                                helperText={errors.remarks}
                             />
                             </FormControl>
                     </FormGroup>
