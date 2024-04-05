@@ -28,7 +28,7 @@ const BookApi = {
     const res = await fetch(`/v1/book/${bookIsbn}`, { method: "DELETE" })
     return res.json()
   },
-  addCategory: async function entCategory(categories) {
+  addCategory: async (categories) => {
     // Validate category name (optional)
     if (!categories || categories.trim() === '') {
       throw new Error('Category name cannot be empty or whitespace.');

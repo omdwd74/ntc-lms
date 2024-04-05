@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import * as dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
+
 import { useParams, useNavigate } from "react-router-dom"
 import {
     Paper,
@@ -105,7 +106,7 @@ export const BookForm = () => {
                 ) {
                     newQuantityHistory.push({ quantity: newQuantity, modifiedAt: dayjs().utc().format() })
                 }
-                BackendApi.book
+                BookApi.book
                     .patchBookByIsbn(bookIsbn, {
                         ...book,
                         priceHistory: newPriceHistory,
@@ -113,7 +114,7 @@ export const BookForm = () => {
                     })
                     .then(() => navigate(-1))
             } else {
-                BackendApi.book
+                BookApi.book
                     .addBook({
                         ...book,
                         priceHistory: [{ price: book.price, modifiedAt: dayjs().utc().format() }],
@@ -157,7 +158,7 @@ export const BookForm = () => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-          const response = await BackendApi.getCategories();
+          const response = await BookApi.addCategory();
           const categories = response.data; // or however your API responds
           setCategories(categories);
         };
@@ -168,7 +169,7 @@ export const BookForm = () => {
 
     useEffect(() => {
         if (bookIsbn) {
-            BackendApi.book.getBookByIsbn(bookIsbn).then(({ book, error }) => {
+            BookApi.book.getBookByIsbn(bookIsbn).then(({ book, error }) => {
                 if (error) {
                     navigate("/")
                 } else {
@@ -186,11 +187,10 @@ export const BookForm = () => {
 
   const handleAddCategory = async () => {
     try {
-        console.log(BackendApi)
-    //   const createdCategory = await BackendApi.addCategory.entCategory(newCategory);
+        console.log(BackendApi);
       // Update the state with the new category list
       
-      const createdCategory = await BackendApi.addCategory.entCategory(newCategory);
+      const createdCategory = await BookApi.addCategory(newCategory);
       setCategories([...categories, createdCategory.name]); // Use the name property
       setOpenAddCategoryDialog(false);
     } catch (error) {
