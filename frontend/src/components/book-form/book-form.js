@@ -14,11 +14,11 @@ import {
     Select,
     MenuItem,
     Typography,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
+    // Dialog,
+    // DialogActions,
+    // DialogContent,
+    // DialogContentText,
+    // DialogTitle,
 } from "@mui/material"
 import { BackendApi } from "../../client/backend-api"
 import classes from "./styles.module.css"
@@ -180,24 +180,24 @@ export const BookForm = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookIsbn])
 
-    const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState(false);
+//     const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState(false);
     
-    const [newCategory, setNewCategory] = useState("");
-    BookApi.addCategory(newCategory);
+//     const [newCategory, setNewCategory] = useState("");
+//     BookApi.addCategory(newCategory);
 
-  const handleAddCategory = async () => {
-    try {
-        console.log(BackendApi);
-      // Update the state with the new category list
+//   const handleAddCategory = async () => {
+//     try {
+//         console.log(BackendApi);
+//       // Update the state with the new category list
       
-      const createdCategory = await BookApi.addCategory(newCategory);
-      setCategories([...categories, createdCategory.name]); // Use the name property
-      setOpenAddCategoryDialog(false);
-    } catch (error) {
-      // Handle error gracefully, e.g., display an error message to the user
-      console.error('Error adding category:', error);
-    }
-}
+//       const createdCategory = await BookApi.addCategory(newCategory);
+//       setCategories([...categories, createdCategory.name]); // Use the name property
+//       setOpenAddCategoryDialog(false);
+//     } catch (error) {
+//       // Handle error gracefully, e.g., display an error message to the user
+//       console.error('Error adding category:', error);
+//     }
+// }
 
 
 
@@ -239,6 +239,7 @@ export const BookForm = () => {
                             <Select name="keyw" value={book.keyw} onChange={updateBookField} required>
                                 <MenuItem value="Computer">Computer</MenuItem>
                                 <MenuItem value="Programming">Programming</MenuItem>
+                                {/* This functionality is temporary stop  */}
                                 <MenuItem value="Add Category">+ Add keyword</MenuItem>
                             </Select>
                         </FormControl>
@@ -262,17 +263,21 @@ export const BookForm = () => {
           onChange={updateBookField}
           required
         >
-          {categories.map((category) => (
-            <MenuItem key={category} value={category}>
-              {category}
-            </MenuItem>
-          ))}
-          <MenuItem value="Add Category" onClick={() => setOpenAddCategoryDialog(true)}>
+                                <MenuItem value="Adventure">Adventure</MenuItem>
+                                <MenuItem value="Designing">Designing</MenuItem>
+                                {/* This functionality is temporary stop  */}
+                                <MenuItem value="Other">OTHER</MenuItem>
+                            </Select>
+      
+          
+          {/* This not working so stop for sometimes */}
+          {/* <MenuItem value="Add Category" onClick={() => setOpenAddCategoryDialog(true)}>
             + Add Category
-          </MenuItem>
-        </Select>
+          </MenuItem> */}
+        {/* </Select> */}
       </FormControl>
-
+      {/* stop for ... */}
+{/* 
       <Dialog open={openAddCategoryDialog} onClose={() => setOpenAddCategoryDialog(false)}>
                 <DialogTitle>Add New Category</DialogTitle>
                 <DialogContent>
@@ -295,7 +300,7 @@ export const BookForm = () => {
                         Add
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
                         <FormControl className={classes.mb2}>
                             <TextField
                                 label="Price"

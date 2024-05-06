@@ -277,7 +277,7 @@ export const Book = () => {
                                     component={RouterLink}
                                     to={`/admin/books/${bookIsbn}/edit`}
                                 >
-                                    Pay Dues
+                                    Pay Dues 
                                 </Button>
                                     <Button
                                         variant="contained"
