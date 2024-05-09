@@ -59,7 +59,7 @@ export const BooksList = () => {
 
     return (
         <>
-        <Route path="/stForm" exact element = {<StudentForm/>} />
+        
         <Button variant="contained" color="primary" onClick={() => navigate("/stForm")}>
                 Add Student
             </Button>
