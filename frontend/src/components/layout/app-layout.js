@@ -22,6 +22,7 @@ import { BookForm } from "../book-form/book-form"
 import { Book } from "../book/book"
 import { WithLoginProtector } from "../access-control/login-protector"
 import { WithAdminProtector } from "../access-control/admin-protector"
+import { AddStudentForm } from "../../client/backend-api/student"
 
 
 export const AppLayout = () => {
@@ -148,6 +149,7 @@ export const AppLayout = () => {
                         </WithLoginProtector>
                     }
                 />
+                <Route path="/stForm" exact element = {<AddStudentForm/>} />
                 <Route
                     path="/admin/books/add"
                     element={
