@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link as RouterLink } from "react-router-dom"
+import { Route, Link as RouterLink , Navigate} from "react-router-dom"
 import {
     Button,
     Paper,
@@ -19,7 +19,8 @@ import {
 import { BackendApi } from "../../client/backend-api"
 import { useUser } from "../../context/user-context"
 import classes from "./styles.module.css"
-
+import { StudentForm } from "../student-form/student-form"
+const navigate=Navigate()
 export const BooksList = () => {
 
     const [books, setBooks] = useState([]);
@@ -58,9 +59,15 @@ export const BooksList = () => {
 
     return (
         <>
+        <Route path="/stForm" exact element = {<StudentForm/>} />
+        <Button variant="contained" color="primary" onClick={() => navigate("/stForm")}>
+                Add Student
+            </Button>
+
             <div className={`${classes.pageHeader} ${classes.mb2}`}>
                 <Typography variant="h5">Book List</Typography>
                 {isAdmin && (
+                    
                     <Button variant="contained" color="primary" component={RouterLink} to="/admin/books/add">
                         Add Book
                     </Button>

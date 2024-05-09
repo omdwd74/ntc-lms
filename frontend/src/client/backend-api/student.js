@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddStudentForm = () => {
+export const AddStudentForm = () => {
   const [student, setStudent] = useState({
     student_name: '',
     roll_number: '',
@@ -76,5 +76,3 @@ const AddStudentForm = () => {
     </form>
   );
 };
-
-export default AddStudentForm;
