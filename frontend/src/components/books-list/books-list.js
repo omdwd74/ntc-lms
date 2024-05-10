@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link as RouterLink } from "react-router-dom"
+import { Route, Link as RouterLink , Navigate} from "react-router-dom"
 import {
     Button,
     Paper,
@@ -19,7 +19,8 @@ import {
 import { BackendApi } from "../../client/backend-api"
 import { useUser } from "../../context/user-context"
 import classes from "./styles.module.css"
-
+import { StudentForm } from "../student-form/student-form"
+const navigate=Navigate()
 export const BooksList = () => {
 
     const [books, setBooks] = useState([]);
@@ -58,9 +59,15 @@ export const BooksList = () => {
 
     return (
         <>
+        
+        <Button variant="contained" color="primary" onClick={() => navigate("/stForm")}>
+                Add Student
+            </Button>
+
             <div className={`${classes.pageHeader} ${classes.mb2}`}>
                 <Typography variant="h5">Book List</Typography>
                 {isAdmin && (
+                    
                     <Button variant="contained" color="primary" component={RouterLink} to="/admin/books/add">
                         Add Book
                     </Button>
@@ -84,6 +91,12 @@ export const BooksList = () => {
                                         <TableCell align="right">Edition</TableCell>
                                         <TableCell align="right">Publisher</TableCell>
                                         <TableCell align="right">Price</TableCell>
+                                        <TableCell align="right">No. of Pages</TableCell>
+                                        <TableCell align="right">Supplier Name</TableCell>
+                                        <TableCell align="right">Supplier Place</TableCell>
+                                        <TableCell align="right">Currency</TableCell>
+                                        <TableCell align="right">Discount</TableCell>
+                                        <TableCell align="right">Date</TableCell>
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -108,6 +121,12 @@ export const BooksList = () => {
                                             <TableCell align="right">{book.edition}</TableCell>
                                             <TableCell align="right">{book.publisher}</TableCell>
                                             <TableCell align="right">{`₹${book.price}`}</TableCell>
+                                            <TableCell align="right">{book.nop}</TableCell>
+                                            <TableCell align="right">{book.supname}</TableCell>
+                                            <TableCell align="right">{book.supplc}</TableCell>
+                                            <TableCell align="right">{book.curr}</TableCell>
+                                            <TableCell align="right">{book.disc}</TableCell>
+                                            <TableCell align="right">{book.dt}</TableCell>
                                             <TableCell>
                                                 <div className={classes.actionsContainer}>
                                                     <Button
@@ -205,7 +224,7 @@ export const BooksList = () => {
                                                 {borrowedBook.map((book) => (
                                                     <TableRow key={book.isbn}>
                                                         <TableCell component="th" scope="row">
-                                                            {book.name}
+                                                            {book.title}
                                                         </TableCell>
                                                         <TableCell align="right">{book.isbn}</TableCell>
                                                         <TableCell>{book.category}</TableCell>

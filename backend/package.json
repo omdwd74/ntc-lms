@@ -13,7 +13,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.3",
     "mongodb": "^4.8.1",
-    "mongoose": "^6.5.0",
+    "mongoose": "^6.12.8",
     "morgan": "~1.9.1",
     "react-scripts": "^5.0.1"
   },

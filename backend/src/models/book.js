@@ -1,23 +1,30 @@
-const { model, Schema } = require("mongoose")
+const { model, Schema } = require("mongoose");
 
 const BookModel = model(
   "books",
   new Schema({
-    accNo: {type: Number, required: true },
-    title: { type: String, required: true },
-    edition: { type: String, required: true },
-    publisher: { type: String, required: true  },
-    keyw: { type:String, required:true},
-    isbn: { type: String, required: true, unique: true },
-    category: { type: String, required: true },
-    price: { type: Number, required: true },
-    tob: {type: String, required: true },
-    quantity: { type: Number, required: true },
-    authorName: { type: String, required: true},
+    accNo: { type: String, unique: true },
+    title: String,
+    edition: String,
+    publisher: String,
+    keyw: String,
+    isbn: String,
+    category: String,
+    price: String,
+    tob: String,
+    quantity:String,
+    authorName: String,
+    nop: String,
+    vol: String,
+    supname: String,
+    supplc: String,
+    curr: String,
+    disc: String, 
+    dte: Date,
     borrowedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
-    priceHistory: { type: Array, required: true, default: [] },
-    quantityHistory: { type: Array, required: true, default: [] },
+    priceHistory: { type: Array, default: [] },
+    quantityHistory: { type: Array, default: [] },
   })
-)
+);
 
-module.exports = { BookModel }
+module.exports = { BookModel };
