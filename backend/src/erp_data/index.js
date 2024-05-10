@@ -1,29 +1,35 @@
 const mongoose = require('mongoose');
-const { BookModel } = require('../models/book'); // Assuming your BookModel is correctly exported
+const { BookModel } = require('../models/book'); 
 const erp_collections = require('./erp');
 
 mongoose.connect('mongodb://localhost:27017/lms', {
-    useNewUrlParser: true, // Corrected option name
+    useNewUrlParser: true, 
     useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
+var i=0,j =0;
+
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
     console.log("Database connected");
 
-    // Iterate over the data and save each item
     erp_collections.forEach(async (item) => {
         try {
-            // Create a new instance of BookModel with the item data
+           
             const newBook = new BookModel(item);
+             newBook.save();
 
-            // Save the newBook instance to the database
-            await newBook.save();
-
-            console.log("Book saved:", newBook);
+            // console.log("Book saved:", newBook);
+            j++;
         } catch (err) {
             console.error("Error saving book:", err);
+            console.log(item);
+            i++;
+            
         }
     });
+    console.log(i);
+    console.log("done");
+    console.log(j);
 });

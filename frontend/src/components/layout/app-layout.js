@@ -26,11 +26,6 @@ import Navbar from '../layout/Navbar';
 import Footer from '../layout/Footer';
 import { WithLoginProtector } from "../access-control/login-protector"
 import { WithAdminProtector } from "../access-control/admin-protector"
-import {LandingPage} from "./landingPage"
-import { AdminDashboard } from "./adminDashboard";
-import { StudentForm } from "../student-form/StudentForm";
-import { StudentsList } from "../students-list/students-list";
-import {calcStDues} from "../dues/dues.js";
 
 
 export const AppLayout = () => {
@@ -218,10 +213,13 @@ export const AppLayout = () => {
                         path="/books/:bookIsbn"
                         element={<WithLoginProtector>
                             <Book />
-                        </WithLoginProtector>} />
-                    <Route
-                        path="/admin/books/add"
-                        element={<WithLoginProtector>
+                        </WithLoginProtector>
+                    }
+                />
+                <Route
+                    path="/admin/books/add"
+                    element={
+                        <WithLoginProtector>
                             <WithAdminProtector>
                                 <BookForm />
                             </WithAdminProtector>
