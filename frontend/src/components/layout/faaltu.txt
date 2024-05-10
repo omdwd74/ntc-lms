@@ -1,0 +1,112 @@
+ <AppBar position="static" style={{ background: '#2E3B55' }}>
+                <Container>
+                    <Toolbar disableGutters>
+                        {/* <AdbIcon sx={{ display: "flex", mr: 1 }} /> */}
+                        <Link to="/" style={{ textDecoration: "none", flexGrow: 1 }}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                sx={{
+                                    // mr: 2,
+                                    display: "flex",
+                                    fontFamily: "monospace",
+                                    fontWeight: 700,
+                                    letterSpacing: ".3rem",
+                                    color: "white",
+                                }}
+                            >
+                                Nitra Technical Campus (LMS)
+                            </Typography>
+                        </Link>
+                        <Box
+                            sx={{
+                                flexGrow: 0,
+                            }}
+                        >
+                            {user ? (
+                                <>
+                                    <Tooltip title="Open settings">
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            <Avatar> {user.username.charAt(0).toUpperCase()} </Avatar>
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: "60px" }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        <MenuItem onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center">Dashboard</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleLogout}>
+                                            <Typography textAlign="center">Dues</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleLogout}>
+                                            <Typography textAlign="center">Logout</Typography>
+                                        </MenuItem>
+                                    </Menu>
+                                </>
+                            ) : (
+                                <Button
+                                    onClick={() => {
+                                        setOpenLoginDialog(true)
+                                    }}
+                                    sx={{ my: 2, color: "white", display: "block" }}
+                                >
+                                    Login
+                                </Button>
+                            )}
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+            <Routes>
+                <Route path="/books" exact element={<BooksList />} />
+                <Route
+                    path="/books/:bookIsbn"
+                    element={
+                        <WithLoginProtector>
+                            <Book />
+                        </WithLoginProtector>
+                    }
+                />
+                <Route
+                    path="/admin/books/add"
+                    element={
+                        <WithLoginProtector>
+                            <WithAdminProtector>
+                                <BookForm />
+                            </WithAdminProtector>
+                        </WithLoginProtector>
+                    }
+                    exact
+                />
+                <Route
+                    path="/admin/books/:bookIsbn/edit"
+                    element={
+                        <WithLoginProtector>
+                            <WithAdminProtector>
+                                <BookForm />
+                            </WithAdminProtector>
+                        </WithLoginProtector>
+                    }
+                />
+                <Route path="*" element={<Navigate to="/books" replace />} />
+            </Routes>
+            <LoginDialog
+                open={openLoginDialog}
+                handleSubmit={handleLoginSubmit}
+                handleClose={handleLoginClose}
+            />
+ 

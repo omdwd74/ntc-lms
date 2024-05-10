@@ -1,0 +1,17 @@
+.slide-container {
+  /* Remove width and height styles */
+  /* width: unset; */
+  /* height: unset; */
+  margin: 10px;
+  border-radius: 40px;
+  /* Optionally set a max-width if needed */
+  max-width: 100vw; /* Adjust as needed */
+  overflow: hidden;
+}
+
+.slide-container img {
+  /* Set image styles here */
+  display: block;
+  width: 100%;
+  height: auto;
+}

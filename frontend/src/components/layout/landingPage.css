@@ -1,0 +1,4 @@
+.welcome :hover {
+    transition: transform 500ms ease-in-out;
+    transform: scale(1.0);
+}
