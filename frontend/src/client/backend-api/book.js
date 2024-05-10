@@ -46,7 +46,7 @@ const BookApi = {
     // Handle response and return result
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(`Failed to add category: ${errorData.message || 'Unknown error'}`);
+      throw new Error(`Failed to add category: ${errorData.message} `);
     }
   
     const createdCategory = await response.json();

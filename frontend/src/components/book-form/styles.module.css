@@ -1,11 +1,13 @@
 .wrapper {
-    max-width: 600;
+    border: 1px solid #2e3b55;
+    border-radius: 40px;
     margin: 25px auto 0;
     padding: 2em;
 }
 
 .mb2 {
     margin-bottom: 2em !important;
+    
 }
 
 .btnContainer {

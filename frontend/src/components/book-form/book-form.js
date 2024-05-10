@@ -106,7 +106,7 @@ export const BookForm = () => {
                 ) {
                     newQuantityHistory.push({ quantity: newQuantity, modifiedAt: dayjs().utc().format() })
                 }
-                BookApi.book
+                BookApi
                     .patchBookByIsbn(bookIsbn, {
                         ...book,
                         priceHistory: newPriceHistory,
@@ -114,13 +114,12 @@ export const BookForm = () => {
                     })
                     .then(() => navigate(-1))
             } else {
-                BookApi.book
-                    .addBook({
+                BookApi.addBook({
                         ...book,
                         priceHistory: [{ price: book.price, modifiedAt: dayjs().utc().format() }],
                         quantityHistory: [{ quantity: book.quantity, modifiedAt: dayjs().utc().format() }],
                     })
-                    .then(() => navigate("/"))
+                    .then(() => navigate("/adminDash"))
             }
         }
     }
@@ -255,25 +254,33 @@ export const BookForm = () => {
                             />
                         </FormControl>
                         <FormControl className={classes.mb2}>
-        <InputLabel>Category</InputLabel>
+                            <InputLabel>Category</InputLabel>
+                            <Select name="category" value={book.category} onChange={updateBookField} required>
+                                <MenuItem value="Journals">Journals</MenuItem>
+                                <MenuItem value="Book Bank">Book Bank</MenuItem>
+                                <MenuItem value="Fiction">Programming</MenuItem>
+                                <MenuItem value="Non-Fiction">Non-Fiction</MenuItem>
+                            </Select>
+        {/* <InputLabel>Category</InputLabel>
         <Select
           name="category"
           value={book.category}
           onChange={updateBookField}
           required
-        >
-          {categories.map((category) => (
+        > */}
+          {/* {categories.map((category) => (
             <MenuItem key={category} value={category}>
               {category}
             </MenuItem>
-          ))}
-          <MenuItem value="Add Category" onClick={() => setOpenAddCategoryDialog(true)}>
+          ))} */}
+       
+          {/* <MenuItem value="Add Category" onClick={() => setOpenAddCategoryDialog(true)}>
             + Add Category
-          </MenuItem>
-        </Select>
+          </MenuItem> */}
+        {/* </Select> */}
       </FormControl>
 
-      <Dialog open={openAddCategoryDialog} onClose={() => setOpenAddCategoryDialog(false)}>
+      {/* <Dialog open={openAddCategoryDialog} onClose={() => setOpenAddCategoryDialog(false)}>
                 <DialogTitle>Add New Category</DialogTitle>
                 <DialogContent>
                     <DialogContentText>Enter the new category name:</DialogContentText>
@@ -295,7 +302,7 @@ export const BookForm = () => {
                         Add
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
                         <FormControl className={classes.mb2}>
                             <TextField
                                 label="Price"
